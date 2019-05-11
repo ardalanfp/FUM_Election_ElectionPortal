@@ -1,6 +1,7 @@
 package com.microservice.FumElection.controller;
 
 import com.microservice.FumElection.exception.ElectionNotFoundException;
+import com.microservice.FumElection.exception.VoteAlreadyExistsException;
 import com.microservice.FumElection.model.VoteModel;
 import com.microservice.FumElection.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,14 @@ public class Controller {
     @Autowired
     VoteRepository votesRepository;
 
-    @GetMapping(value = "/hasVoted")
+    @GetMapping(value = "/allowedToVote")
     public Map<String,String> hasVoted(int voterUserId, int electionId){
         VoteModel v =votesRepository.findByElectionIdAndVoterUserId(electionId,voterUserId);
-        if (v == null) {
-            throw new ElectionNotFoundException();
+        if (v != null) {
+            throw new VoteAlreadyExistsException();
         }
         Map<String,String> map = new HashMap<>();
-        String msg = "user has voted at "+v.getSubmitDate().toString();
+        String msg = "user has not voted.";
         map.put("message",msg);
         return map;
     }
