@@ -18,7 +18,7 @@ public class VoteModel {
     private int choiceNumber;
 
     @Column
-    private int voterUserId;
+    private String voterUserId;
 
     @Column
     private Date submitDate;
@@ -26,7 +26,7 @@ public class VoteModel {
     public VoteModel() {
     }
 
-    public VoteModel( int electionId, int choiceNumber, int voterUserId) {
+    public VoteModel( int electionId, int choiceNumber, String voterUserId) {
         this.electionId = electionId;
         this.choiceNumber = choiceNumber;
         this.voterUserId = voterUserId;
@@ -57,11 +57,11 @@ public class VoteModel {
         this.choiceNumber = choiceNumber;
     }
 
-    public int getVoterUserId() {
+    public String getVoterUserId() {
         return voterUserId;
     }
 
-    public void setVoterUserId(int voterUserId) {
+    public void setVoterUserId(String voterUserId) {
         this.voterUserId = voterUserId;
     }
 

@@ -20,7 +20,7 @@ public class Controller {
     VoteRepository votesRepository;
 
     @GetMapping(value = "/allowedToVote")
-    public Map<String,String> hasVoted(int voterUserId, int electionId){
+    public Map<String,String> hasVoted(String voterUserId, int electionId){
         VoteModel v =votesRepository.findByElectionIdAndVoterUserId(electionId,voterUserId);
         if (v != null) {
             throw new VoteAlreadyExistsException();
@@ -32,7 +32,7 @@ public class Controller {
     }
 
     @GetMapping(value = "/saveVote")
-    public Map<String,String> vote(int electionId,int choiceNumber,int voterUserId){
+    public Map<String,String> vote(int electionId,int choiceNumber,String voterUserId){
 
         VoteModel vote = new VoteModel(electionId,choiceNumber,voterUserId);
         votesRepository.save(vote);
